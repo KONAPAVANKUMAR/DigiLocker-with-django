@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'landingpage' %}">DigiLocker</a>
+      <a href="{% url 'loginpage' %}" class="btn btn-light">Login</a>
+      </div>
+    </div>
+</nav>
+
+<div style="background-repeat: no-repeat;background-size: cover;height: 100vh;width: 100vw;background-position: top;background-image: url({% static 'img/locker.jpg' %});">
+
+</div>
+
+{% endblock %}

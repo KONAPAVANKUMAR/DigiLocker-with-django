@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+        <a class="navbar-brand" href="{% url 'landingpage' %}">DigiLocker</a>
+
+        </div>
+        </div>
+    </nav>
+    {% for message in messages %}
+    <div class="alert alert-danger fixed-top">
+        
+        <p class="text-center">{{message}}</p>
+        
+    </div>
+    {% endfor %}
+
+    <div class="row" style="margin-top: 35vh;">
+        <div class="col-5"></div>
+        <form action="/signup/save/" class="col-2 bg-primary p-3" method="post" style="border-radius: 10px;">
+            {% csrf_token %}
+            <input placeholder="username" name="username" class="form-control my-1 text-center" type="text">
+            <input placeholder="password" name="password" class="form-control my-1 text-center" type="password">
+            <input placeholder="re-enter password" name="repassword" class="form-control my-1 text-center" type="password">
+            <div class="container" style="width: fit-content;">
+                <input type="submit" value="Login"  class="btn btn-sm btn-light my-1">
+            </div>
+            <p class="text-light text-center mb-0">Already have an account ?</p>
+            <p class="text-center text-light"><a class="text-warning" href="{% url 'loginpage' %}">login</a> here</p>
+        </form>
+        <div class="col-5"></div>
+    </div>
+
+
+
+{% endblock %}

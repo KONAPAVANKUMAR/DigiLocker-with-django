@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+    <a class="navbar-brand" href="{% url 'homepage' %}">DigiLocker</a>
+    <div>
+        <a class="btn btn-success" href="{% url 'adddocumentpage' %}">Add Document</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+    
+    </div>
+    </div>
+</nav>
+
+<div class="alert-sm alert-success">
+    {% if messages %}
+    {% for message in messages %}
+    <h4 class="text-center text-light">{{message}}</h4>
+    {% endfor %}
+    {% else %}
+    <h4 class="text-center text-light">Hello {{user.username.upper}}</h4>
+    {% endif %}
+    
+</div>
+
+
+<div class="container">
+    <div class="row">
+        {% for document in documents %}
+         <div class="text-center col-lg-4 d-flex text-dark justify-content-center">
+         
+             <div style="position: relative;"  class="card bg-light mb-3">
+                <a href="/document/delete/{{document.id}}/">
+                    <div class="px-2 m-0 bg-danger text-light" style="position: absolute;right: 0px;top: 0px;border-radius: 10px;">
+                        X
+                    </div>
+                </a>
+                 <div class="card-body">
+                    <img src="{{document.file.url}}" style="width: 20vw;" alt="">
+                 </div>
+                 <h3 class="card-header">{{document.title}}</h3>
+                 <!-- <div class="card-title">price : {{item.price}}</div> -->
+                 <div class="container m-3">
+                     <a href="{{document.file.url}}" class="btn btn-success">Download</a>
+                 </div>
+               </div>
+         </div>
+         {% endfor %}
+</div>
+</div>
+{% endblock %}
