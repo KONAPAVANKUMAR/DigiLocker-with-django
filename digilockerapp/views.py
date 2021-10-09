@@ -64,6 +64,13 @@ def adddocumentview(request):
 import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+import pyAesCrypt
+symmetricKey = "qwerpoiu"
+def encrypt(fileName):
+    pyAesCrypt.encryptFile(f'media/documents/{fileName}', f'media/encrypted/{fileName}', symmetricKey)
+def decrypt(fileName):
+    pyAesCrypt.decryptFile(f'media/encrypted/{fileName}', f'media/documents/{fileName}', symmetricKey)
+
 def adddocument(request):
     title = request.POST['title']
     file = request.FILES['file']
@@ -72,7 +79,9 @@ def adddocument(request):
     fs = FileSystemStorage(location=documentsRoot)
     filename = fs.save(file.name, file)
     uploaded_file_url = documentsUrl+filename
+    encrypt(filename)
     DocumentModel(userid = request.user.id,title = title,file = f'documents/{filename}').save()
+    decrypt(filename)
     messages.add_message(request,messages.INFO,"Document Added Succesfully")
     return redirect('homepage')
 
